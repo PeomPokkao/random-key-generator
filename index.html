@@ -4,10 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Random Key Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+            background-color: #f4f4f4;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        #keyDisplay {
+            margin-top: 20px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+    </style>
     <script>
         function generateKey() {
             let key = Math.random().toString(36).substring(2, 15);
             document.getElementById("keyDisplay").innerText = key;
+            alert("New key generated: " + key); // User feedback
+            document.querySelector("button").disabled = true; // Disable the button after click
         }
     </script>
 </head>
