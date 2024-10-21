@@ -15,6 +15,7 @@
             padding: 10px 20px;
             font-size: 16px;
             cursor: pointer;
+            margin: 10px;
         }
         #keyDisplay {
             margin-top: 20px;
@@ -35,21 +36,37 @@
                 // If the button was clicked today, show a message
                 document.getElementById("message").innerText = "คุณได้สร้างคีย์แล้วในวันนี้!";
                 return;
-            } 
+            }
 
             // Generate a new key
             let key = Math.random().toString(36).substring(2, 15);
             document.getElementById("keyDisplay").innerText = key;
             alert("New key generated: " + key); // User feedback
 
-            // Save today's date to localStorage
+            // Save today's date and key to localStorage
             localStorage.setItem("lastClick", today);
+            localStorage.setItem("lastKey", key);
             document.querySelector("button").disabled = true; // Disable the button after click
+        }
+
+        function toggleHistory() {
+            let today = new Date().toISOString().split('T')[0];
+            let lastClick = localStorage.getItem("lastClick");
+            let lastKey = localStorage.getItem("lastKey");
+            let historyDisplay = document.getElementById("historyDisplay");
+
+            if (lastClick === today && lastKey) {
+                // If there is a key generated today, show the key
+                historyDisplay.innerText = "ประวัติการสร้างคีย์ในวันนี้: " + lastKey;
+            } else {
+                // If there is no key generated today, show "ไม่มีประวัติ"
+                historyDisplay.innerText = "ไม่มีประวัติการสร้างคีย์ในวันนี้";
+            }
         }
 
         // Check on page load if the button should be enabled or disabled
         window.onload = function() {
-            let today = new Date().toISOString().split('T')[0]; 
+            let today = new Date().toISOString().split('T')[0];
             let lastClick = localStorage.getItem("lastClick");
 
             if (lastClick === today) {
@@ -63,7 +80,9 @@
 <body>
     <h1>Random Key Generator</h1>
     <button onclick="generateKey()">Generate Key</button>
+    <button onclick="toggleHistory()">Toggle History</button>
     <p id="keyDisplay">Click the button to generate a key!</p>
     <p id="message"></p>
+    <p id="historyDisplay"></p>
 </body>
 </html>
