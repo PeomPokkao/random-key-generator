@@ -21,13 +21,42 @@
             font-size: 24px;
             font-weight: bold;
         }
+        #message {
+            margin-top: 20px;
+            color: red;
+        }
     </style>
     <script>
         function generateKey() {
+            let today = new Date().toISOString().split('T')[0]; // Get today's date in YYYY-MM-DD format
+            let lastClick = localStorage.getItem("lastClick"); // Get the last click date
+
+            if (lastClick === today) {
+                // If the button was clicked today, show a message
+                document.getElementById("message").innerText = "คุณได้สร้างคีย์แล้วในวันนี้!";
+                return;
+            } 
+
+            // Generate a new key
             let key = Math.random().toString(36).substring(2, 15);
             document.getElementById("keyDisplay").innerText = key;
             alert("New key generated: " + key); // User feedback
+
+            // Save today's date to localStorage
+            localStorage.setItem("lastClick", today);
             document.querySelector("button").disabled = true; // Disable the button after click
+        }
+
+        // Check on page load if the button should be enabled or disabled
+        window.onload = function() {
+            let today = new Date().toISOString().split('T')[0]; 
+            let lastClick = localStorage.getItem("lastClick");
+
+            if (lastClick === today) {
+                // If the button was clicked today, disable it
+                document.querySelector("button").disabled = true;
+                document.getElementById("message").innerText = "คุณได้สร้างคีย์แล้วในวันนี้!";
+            }
         }
     </script>
 </head>
@@ -35,5 +64,6 @@
     <h1>Random Key Generator</h1>
     <button onclick="generateKey()">Generate Key</button>
     <p id="keyDisplay">Click the button to generate a key!</p>
+    <p id="message"></p>
 </body>
 </html>
