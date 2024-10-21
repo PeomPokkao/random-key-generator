@@ -69,6 +69,12 @@
             let today = new Date().toISOString().split('T')[0];
             let lastClick = localStorage.getItem("lastClick");
 
+            // Reset the localStorage if the date has changed
+            if (lastClick !== today) {
+                localStorage.removeItem("lastClick");
+                localStorage.removeItem("lastKey");
+            }
+
             if (lastClick === today) {
                 // If the button was clicked today, disable it
                 document.querySelector("button").disabled = true;
