@@ -26,6 +26,11 @@
             margin-top: 20px;
             color: red;
         }
+        #logo {
+            width: 150px;
+            height: auto;
+            margin-bottom: 20px;
+        }
     </style>
     <script>
         function generateKey() {
@@ -85,6 +90,8 @@
 </head>
 <body>
     <h1>Random Key Generator</h1>
+    <!-- เพิ่มรูปภาพ -->
+    <img id="logo" src="https://cdn.discordapp.com/attachments/1052889673053245490/1297865596872163370/N_HUB_png-Recovered.png?ex=67177b07&is=67162987&hm=05c2f82f27e268b18e7fb7af08925f2b3fa64dabc6bff655c12d4211de6b60d8" alt="Logo">
     <button onclick="generateKey()">Generate Key</button>
     <button onclick="toggleHistory()">History Key</button>
     <p id="keyDisplay">Click the button to generate a key!</p>
