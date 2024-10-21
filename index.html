@@ -49,7 +49,7 @@
             document.querySelector("button").disabled = true; // Disable the button after click
         }
 
-        function HistoryKey() {
+        function toggleHistory() {
             let today = new Date().toISOString().split('T')[0];
             let lastClick = localStorage.getItem("lastClick");
             let lastKey = localStorage.getItem("lastKey");
@@ -80,7 +80,7 @@
 <body>
     <h1>Random Key Generator</h1>
     <button onclick="generateKey()">Generate Key</button>
-    <button onclick="HistoryKey()">History Key</button>
+    <button onclick="toggleHistory()">History Key</button>
     <p id="keyDisplay">Click the button to generate a key!</p>
     <p id="message"></p>
     <p id="historyDisplay"></p>
