@@ -10,6 +10,7 @@
             text-align: center;
             margin: 50px;
             background-color: #f4f4f4;
+            position: relative;
         }
         button {
             padding: 10px 20px;
@@ -27,32 +28,34 @@
             color: red;
         }
         #logo {
-            width: 100%; /* ปรับขนาดความกว้างให้เต็ม */
-            max-width: 800px; /* ความกว้างสูงสุด */
-            height: auto;
+            width: 200px; /* ปรับขนาดตามที่ต้องการ */
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+        #headerTitle {
+            font-size: 32px;
+            font-weight: bold;
             margin-bottom: 20px;
         }
     </style>
     <script>
         function generateKey() {
-            let today = new Date().toISOString().split('T')[0]; // Get today's date in YYYY-MM-DD format
-            let lastClick = localStorage.getItem("lastClick"); // Get the last click date
+            let today = new Date().toISOString().split('T')[0];
+            let lastClick = localStorage.getItem("lastClick");
 
             if (lastClick === today) {
-                // If the button was clicked today, show a message
                 document.getElementById("message").innerText = "คุณได้สร้างคีย์แล้วในวันนี้!";
                 return;
             }
 
-            // Generate a new key
             let key = Math.random().toString(36).substring(2, 15);
             document.getElementById("keyDisplay").innerText = key;
-            alert("New key generated: " + key); // User feedback
+            alert("New key generated: " + key);
 
-            // Save today's date and key to localStorage
             localStorage.setItem("lastClick", today);
             localStorage.setItem("lastKey", key);
-            document.querySelector("button").disabled = true; // Disable the button after click
+            document.querySelector("button").disabled = true;
         }
 
         function toggleHistory() {
@@ -62,27 +65,22 @@
             let historyDisplay = document.getElementById("historyDisplay");
 
             if (lastClick === today && lastKey) {
-                // If there is a key generated today, show the key
                 historyDisplay.innerText = "ประวัติการสร้างคีย์ในวันนี้: " + lastKey;
             } else {
-                // If there is no key generated today, show "ไม่มีประวัติ"
                 historyDisplay.innerText = "ไม่มีประวัติการสร้างคีย์ในวันนี้";
             }
         }
 
-        // Check on page load if the button should be enabled or disabled
         window.onload = function() {
             let today = new Date().toISOString().split('T')[0];
             let lastClick = localStorage.getItem("lastClick");
 
-            // Reset the localStorage if the date has changed
             if (lastClick !== today) {
                 localStorage.removeItem("lastClick");
                 localStorage.removeItem("lastKey");
             }
 
             if (lastClick === today) {
-                // If the button was clicked today, disable it
                 document.querySelector("button").disabled = true;
                 document.getElementById("message").innerText = "คุณได้สร้างคีย์แล้วในวันนี้!";
             }
@@ -90,9 +88,11 @@
     </script>
 </head>
 <body>
-    <h1>Random Key Generator</h1>
-    <!-- เพิ่มรูปภาพกลับไป -->
+    <!-- ใส่ชื่อ UPPERCUT HUB ด้านบน -->
+    <div id="headerTitle">UPPERCUT HUB</div>
+    <!-- เพิ่มรูปภาพไว้มุมขวาบน -->
     <img id="logo" src="https://cdn.discordapp.com/attachments/1052889673053245490/1297865596872163370/N_HUB_png-Recovered.png?ex=67177b07&is=67162987&hm=05c2f82f27e268b18e7fb7af08925f2b3fa64dabc6bff655c12d4211de6b60d8" alt="Logo">
+    <h1>Random Key Generator</h1>
     <button onclick="generateKey()">Generate Key</button>
     <button onclick="toggleHistory()">History Key</button>
     <p id="keyDisplay">Click the button to generate a key!</p>
